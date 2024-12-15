@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sic_mobile_app/pages/home_page.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -52,10 +51,7 @@ class OnboardingPage extends StatelessWidget {
                 margin: const EdgeInsets.fromLTRB(0, 24, 0, 0),
                 child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomePage()));
+                      Navigator.pushNamed(context, '/auth', arguments: 0);
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFFFA726),
@@ -71,7 +67,9 @@ class OnboardingPage extends StatelessWidget {
 
               // Sign Up Button
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/auth', arguments: 1);
+                  },
                   style: OutlinedButton.styleFrom(
                       backgroundColor: Colors.white,
                       side: const BorderSide(color: Colors.grey),
@@ -82,7 +80,6 @@ class OnboardingPage extends StatelessWidget {
                     'Sign Up',
                     style: TextStyle(fontSize: 16, color: Colors.black),
                   )),
-              const SizedBox(height: 4),
             ],
           ),
         ));
