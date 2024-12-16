@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:sic_mobile_app/components/auth/password_condition.dart';
@@ -100,9 +101,9 @@ class _SignUpFormState extends State<SignUpForm> {
                     }),
                 const Expanded(
                     child: Text(
-                  'By agreeing to the tetms and conditions, are entering into a legally biding contract with the service provider.',
-                  style: TextStyle(fontSize: 12),
-                ))
+                      'By agreeing to the tetms and conditions, are entering into a legally biding contract with the service provider.',
+                      style: TextStyle(fontSize: 12),
+                    ))
               ],
             ),
           ),
@@ -111,10 +112,10 @@ class _SignUpFormState extends State<SignUpForm> {
           ElevatedButton(
             onPressed: isFormValid
                 ? () {
-                    if (_formKey.currentState!.validate()) {
-                      // Handle sign up
-                    }
-                  }
+              if (_formKey.currentState!.validate()) {
+                // Handle sign up
+              }
+            }
                 : null,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.orange,

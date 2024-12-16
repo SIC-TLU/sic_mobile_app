@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sic_mobile_app/components/auth/login_form.dart';
 import 'package:sic_mobile_app/components/auth/signup_form.dart';
 
 class AuthPage extends StatelessWidget {
@@ -7,7 +8,7 @@ class AuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final int initialTabIndex =
-        ModalRoute.of(context)!.settings.arguments as int;
+    ModalRoute.of(context)!.settings.arguments as int;
 
     return Scaffold(
       body: Padding(
@@ -56,9 +57,7 @@ class AuthPage extends StatelessWidget {
                     height: 500, // Adjust this height as needed
                     child: TabBarView(
                       children: [
-                        Center(
-                            child: Text(
-                                'Login Screen')), // Add your Login screen here
+                        SignInForm(),
                         SignUpForm(),
                       ],
                     ),
