@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:sic_mobile_app/pages/auth/auth_page.dart';
-import 'pages/onboarding_page.dart';
+import 'package:sic_mobile_app/routers/routers.dart';
+
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Onbaording Screen',
+    return MaterialApp.router(
+      title: 'SIC Mobile App',
       theme: ThemeData(primarySwatch: Colors.orange),
-      home: const OnboardingPage(),
-      initialRoute: '/',
-      routes: {
-        '/auth': (context) => const AuthPage(),
-      },
+      routerConfig: RouterConfigCustom.router,
       debugShowCheckedModeBanner: false,
     );
   }

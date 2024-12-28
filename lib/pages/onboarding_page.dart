@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -51,7 +52,7 @@ class OnboardingPage extends StatelessWidget {
                 margin: const EdgeInsets.fromLTRB(0, 24, 0, 0),
                 child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/auth', arguments: 0);
+                      context.goNamed('auth', extra: {'type': 'login'});
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFFFA726),
@@ -68,7 +69,7 @@ class OnboardingPage extends StatelessWidget {
               // Sign Up Button
               ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/auth', arguments: 1);
+                    context.goNamed('auth', extra: {'type': 'signup'});
                   },
                   style: OutlinedButton.styleFrom(
                       backgroundColor: Colors.white,
