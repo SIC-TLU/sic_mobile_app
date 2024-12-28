@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:sic_mobile_app/components/common/cusom_text_field.dart';
 import 'package:sic_mobile_app/components/common/password_fied.dart';
 
 class SignInForm extends StatefulWidget {
@@ -17,7 +17,6 @@ class _SignInFormState extends State<SignInForm> {
   bool _hasNumber = false;
   bool _hasUpperAndLower = false;
   bool _isForgotPasswordTapped = false;
-
 
   void _checkUsername(String username) {
     setState(() {
@@ -36,18 +35,17 @@ class _SignInFormState extends State<SignInForm> {
 
   void _onForgotPasswordTapped() {
     setState(() {
-      _isForgotPasswordTapped =
-      !_isForgotPasswordTapped;
+      _isForgotPasswordTapped = !_isForgotPasswordTapped;
     });
-    //code forgot password here
+    context.goNamed('confirmmail');
   }
 
   @override
   Widget build(BuildContext context) {
-    bool isFormValid = _hasMinLengthName
-        && _hasMinLengthPassWord
-        && _hasNumber
-        && _hasUpperAndLower;
+    bool isFormValid = _hasMinLengthName &&
+        _hasMinLengthPassWord &&
+        _hasNumber &&
+        _hasUpperAndLower;
 
     return Form(
       key: _formKey,
@@ -59,12 +57,16 @@ class _SignInFormState extends State<SignInForm> {
           TextFormField(
             onChanged: _checkUsername,
             decoration: InputDecoration(
-              prefixIcon: const Icon(LucideIcons.user2),
-              hintText: 'Enter your username',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
+                prefixIcon: const Icon(LucideIcons.user2),
+                hintText: 'Enter your username',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.grey),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.orange),
+                )),
           ),
           const SizedBox(height: 15),
           PasswordField(

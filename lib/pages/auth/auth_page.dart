@@ -3,13 +3,12 @@ import 'package:sic_mobile_app/components/auth/login_form.dart';
 import 'package:sic_mobile_app/components/auth/signup_form.dart';
 
 class AuthPage extends StatelessWidget {
-  const AuthPage({super.key});
+  final int initialTabIndex;
+
+  const AuthPage({super.key, required this.initialTabIndex});
 
   @override
   Widget build(BuildContext context) {
-    final int initialTabIndex =
-    ModalRoute.of(context)!.settings.arguments as int;
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -18,7 +17,7 @@ class AuthPage extends StatelessWidget {
           children: [
             // Logo
             Image.asset(
-              'assets/images/logo.png', // Update this to your logo path
+              'assets/images/logo.png',
               height: 80,
             ),
             const SizedBox(height: 16),
