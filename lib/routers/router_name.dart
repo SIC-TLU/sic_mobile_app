@@ -5,6 +5,7 @@ class RoutersPath {
   static const String confirmmailPath = '/confirmmail';
   static const String verificationPath = '/verification';
   static const String resetpasswordPath = '/resetpassword';
+  static const String notfoundPath = '/notfound';
 }
 
 class RoutersName {
@@ -13,4 +14,5 @@ class RoutersName {
   static const String confirmmailName = 'confirmmail';
   static const String verificationName = 'verification';
   static const String resetpasswordName = 'resetpassword';
+  static const String notfoundName = 'notfound';
 }

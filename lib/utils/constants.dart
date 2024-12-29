@@ -5,5 +5,3 @@ double getHeight(context) => MediaQuery.sizeOf(context).height;
 
 double getKeyboardHeight(BuildContext context) =>
     MediaQuery.of(context).viewInsets.bottom;
-
-// double paddingCustom(BuildContext context) => getWidth(context) * 0.06;
