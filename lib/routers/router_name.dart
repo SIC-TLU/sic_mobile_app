@@ -6,6 +6,7 @@ class RoutersPath {
   static const String verificationPath = '/verification';
   static const String resetpasswordPath = '/resetpassword';
   static const String notfoundPath = '/notfound';
+  static const String internalservererrorPath = '/internalservererror';
 }
 
 class RoutersName {
@@ -15,4 +16,5 @@ class RoutersName {
   static const String verificationName = 'verification';
   static const String resetpasswordName = 'resetpassword';
   static const String notfoundName = 'notfound';
+  static const String internalservererrorName = 'internalservererror';
 }

@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sic_mobile_app/components/common/custom_button_backup.dart';
 import 'package:sic_mobile_app/utils/constants.dart';
 
-class NotFoundPage extends StatelessWidget {
-  const NotFoundPage({super.key});
+class InternalServerErrorPage extends StatelessWidget {
+  const InternalServerErrorPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class NotFoundPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: SizedBox(
                 child: SvgPicture.asset(
-                  'assets/images/notfound404.svg',
+                  'assets/images/internal_server_error.svg',
                   fit: BoxFit.contain,
                   height: 216,
                   width: 373,
@@ -30,7 +30,7 @@ class NotFoundPage extends StatelessWidget {
 
             // Title Text
             const Text(
-              'Not found page',
+              'Internal server\nerror',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 30,

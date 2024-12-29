@@ -4,6 +4,7 @@ import 'package:sic_mobile_app/pages/auth/auth_page.dart';
 import 'package:sic_mobile_app/pages/auth/forgotpassword/confirm_email_page.dart';
 import 'package:sic_mobile_app/pages/auth/forgotpassword/reset_password_page.dart';
 import 'package:sic_mobile_app/pages/auth/forgotpassword/verification_code_page.dart';
+import 'package:sic_mobile_app/pages/internal_server_error_page.dart';
 import 'package:sic_mobile_app/pages/notfound_page.dart';
 import 'package:sic_mobile_app/pages/onboarding_page.dart';
 import 'package:sic_mobile_app/routers/router_name.dart';
@@ -15,7 +16,7 @@ class RouterConfigCustom {
         path: RoutersPath.onboardingPath,
         name: RoutersName.onboardingName,
         builder: (BuildContext context, GoRouterState state) {
-          return const NotFoundPage();
+          return const OnboardingPage();
         },
       ),
       GoRoute(
@@ -55,6 +56,13 @@ class RouterConfigCustom {
         name: RoutersName.notfoundName,
         builder: (BuildContext context, GoRouterState state) {
           return const NotFoundPage();
+        },
+      ),
+      GoRoute(
+        path: RoutersPath.internalservererrorPath,
+        name: RoutersName.internalservererrorName,
+        builder: (BuildContext context, GoRouterState state) {
+          return const InternalServerErrorPage();
         },
       ),
     ],
