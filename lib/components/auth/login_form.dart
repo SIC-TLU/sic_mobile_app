@@ -106,7 +106,7 @@ class _SignInFormState extends State<SignInForm> {
             onPressed: isFormValid
                 ? () {
                     if (_formKey.currentState!.validate()) {
-                      // Handle sign in
+                      context.goNamed('home');
                     }
                   }
                 : null,

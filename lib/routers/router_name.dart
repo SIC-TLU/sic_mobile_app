@@ -7,6 +7,10 @@ class RoutersPath {
   static const String resetpasswordPath = '/resetpassword';
   static const String notfoundPath = '/notfound';
   static const String internalservererrorPath = '/internalservererror';
+  static const String homePath = '/home';
+  static const String schedulePath = '/schedule';
+  static const String eventPath = '/event';
+  static const String profilePath = '/profile';
 }
 
 class RoutersName {
@@ -17,4 +21,8 @@ class RoutersName {
   static const String resetpasswordName = 'resetpassword';
   static const String notfoundName = 'notfound';
   static const String internalservererrorName = 'internalservererror';
+  static const String homeName = 'home';
+  static const String scheduleName = 'schedule';
+  static const String eventName = 'event';
+  static const String profileName = 'profile';
 }
