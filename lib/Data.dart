@@ -1,5 +1,5 @@
-// ignore_for_file: file_names
 class PostData {
+  final int id;
   final String username;
   final String date;
   final String? title;
@@ -7,7 +7,7 @@ class PostData {
   final List<String> hashtags;
   final List<String> prizes;
   String likes;
-  final String comments;
+  List<Map<String, String>> comments;
   final String shares;
   final List<String>? imageUrls;
   final String? avatarUrl;
@@ -17,6 +17,7 @@ class PostData {
   bool get hasImages => imageUrls != null && imageUrls!.isNotEmpty;
 
   PostData({
+    required this.id,
     required this.username,
     required this.date,
     this.title,
@@ -36,6 +37,7 @@ class PostData {
 
 final List<PostData> postDataList = [
   PostData(
+    id: 0,
     username: 'lovanbang999',
     date: '12 Dec 2024',
     title: '[ ĐẠI GIA ĐÌNH SIC K66 CHÍNH THỨC "LÊN SÓNG"!]',
@@ -44,10 +46,13 @@ final List<PostData> postDataList = [
     hashtags: [],
     prizes: ['Bàn phím', 'Chuột không dây'],
     likes: '100',
-    comments: '943',
+    comments: [
+      // {'username': 'lovanbang999', 'comment': 'Bài viết hay quá!'},
+      // {'username': 'vihongminh', 'comment': 'Chúc mừng các bạn nhé!'},
+    ],
     shares: '10k',
     defaultAvatar: 'assets/images/avatar_default.png',
-    avatarUrl: '',
+    avatarUrl: null,
     imageUrls: [
       'assets/images/SIC/sic1.jpg',
       'assets/images/SIC/sic2.jpg',
@@ -63,6 +68,7 @@ final List<PostData> postDataList = [
     hasSeeMore: false,
   ),
   PostData(
+    id: 1,
     username: 'vihongminh',
     date: '13 Dec 2024',
     title: '[ ĐẠI GIA ĐÌNH SIC K66 CHÍNH THỨC "LÊN SÓNG"!]',
@@ -71,7 +77,10 @@ final List<PostData> postDataList = [
     hashtags: [],
     prizes: ['Bàn phím', 'Chuột không dây'],
     likes: '250',
-    comments: '1324',
+    comments: [
+      {'username': 'lovanbang999', 'comment': 'Bài viết hay quá!'},
+      {'username': 'vihongminh', 'comment': 'Chúc mừng các bạn nhé!'},
+    ],
     shares: '2k',
     defaultAvatar: 'assets/images/avatar_default.png',
     avatarUrl: 'assets/images/avatar.png',

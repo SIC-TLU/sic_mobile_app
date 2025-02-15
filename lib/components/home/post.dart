@@ -1,6 +1,6 @@
-// ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:sic_mobile_app/components/home/actions/comment_post.dart';
 import '../../Data.dart';
 import 'actions/like_post.dart';
 import 'post/post_images.dart';
@@ -19,6 +19,7 @@ class PostListPage extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _PostListPageState createState() => _PostListPageState();
 }
 
@@ -43,13 +44,13 @@ class _PostListPageState extends State<PostListPage> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey,
+            color: Colors.white,
             blurRadius: 4,
             offset: Offset(0, 2),
           ),
         ],
       ),
-      margin: EdgeInsets.symmetric(vertical: widget.screenHeight * 0.01),
+      margin: EdgeInsets.symmetric(vertical: widget.screenHeight * 0.005),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -137,10 +138,38 @@ class _PostListPageState extends State<PostListPage> {
                 SizedBox(width: widget.screenWidth * 0.04),
                 Row(
                   children: [
-                    const Icon(LucideIcons.messageCircle,
-                        size: 25, color: Colors.black87),
+                    InkWell(
+                      onTap: () async {
+                        await showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(25),
+                            ),
+                          ),
+                          builder: (_) {
+                            return CommentPost(
+                              id: post.id,
+                              screenHeight: widget.screenHeight,
+                              screenWidth: widget.screenWidth,
+                              comments: post.comments,
+                              username: post.username,
+                              avatarUrl: post.avatarUrl,
+                              defaultAvatar: post.defaultAvatar,
+                            );
+                          },
+                        );
+                        setState(() {});
+                      },
+                      child: const Icon(
+                        LucideIcons.messageCircle,
+                        size: 25,
+                        color: Colors.black87,
+                      ),
+                    ),
                     SizedBox(width: widget.screenWidth * 0.005),
-                    Text(post.comments),
+                    Text(post.comments.length.toString()),
                   ],
                 ),
                 SizedBox(width: widget.screenWidth * 0.04),
