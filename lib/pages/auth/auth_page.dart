@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sic_mobile_app/components/auth/login_form.dart';
 import 'package:sic_mobile_app/components/auth/signup_form.dart';
+import 'package:sic_mobile_app/utils/constants.dart';
 
 class AuthPage extends StatelessWidget {
   final int initialTabIndex;
@@ -9,36 +10,37 @@ class AuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = getHeight(context);
+    final screenWidth = getWidth(context);
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(screenWidth * 0.04),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: screenHeight * 0.05),
             // Logo
-            Image.asset(
-              'assets/images/logo.png',
-              height: 80,
-            ),
-            const SizedBox(height: 16),
+            Image.asset('assets/images/logo.png', height: 100),
+            SizedBox(height: screenHeight * 0.02),
             const Text(
               'Welcome to SIC',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: screenHeight * 0.01),
             const Text(
               'Sign up or login to get ready for an exciting journey with SIC',
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.grey),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
             // Tabs
             DefaultTabController(
               length: 2,
               initialIndex: initialTabIndex,
-              child: const Column(
+              child: Column(
                 children: [
-                  TabBar(
+                  const TabBar(
                     labelColor: Colors.orange,
                     unselectedLabelColor: Colors.grey,
                     indicatorColor: Colors.orange,
@@ -53,8 +55,8 @@ class AuthPage extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: 500, // Adjust this height as needed
-                    child: TabBarView(
+                    height: screenHeight * 0.6,
+                    child: const TabBarView(
                       children: [
                         SignInForm(),
                         SignUpForm(),

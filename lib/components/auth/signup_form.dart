@@ -3,6 +3,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'package:sic_mobile_app/components/auth/password_condition.dart';
 import 'package:sic_mobile_app/components/common/custom_text_field.dart';
 import 'package:sic_mobile_app/components/common/password_fied.dart';
+import 'package:sic_mobile_app/utils/constants.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -13,16 +14,64 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  final ScrollController _scrollController = ScrollController();
+  final FocusNode _confirmPasswordFocusNode = FocusNode();
+
   bool _agreeToTerms = false;
   bool _hasMinLength = false;
   bool _hasNumber = false;
   bool _hasUpperAndLower = false;
   bool _passwordsMatch = false;
-  final String _password = '';
+  String _password = '';
   String _confirmPassword = '';
+  bool _canScroll = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _confirmPasswordFocusNode.addListener(() {
+      if (_confirmPasswordFocusNode.hasFocus) {
+        setState(() {
+          _canScroll = true;
+        });
+
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (_scrollController.hasClients) {
+            _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+            );
+          }
+        });
+      } else {
+        setState(() {
+          _canScroll = false;
+        });
+
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (_scrollController.hasClients) {
+            _scrollController.animateTo(
+              0.0,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+            );
+          }
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _confirmPasswordFocusNode.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   void _checkPassword(String password) {
     setState(() {
+      _password = password;
       _hasMinLength = password.length >= 8;
       _hasNumber = password.contains(RegExp(r'\d'));
       _hasUpperAndLower = password.contains(RegExp(r'[A-Z]')) &&
@@ -40,94 +89,110 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = getHeight(context);
+
     bool isFormValid = _agreeToTerms &&
         _hasMinLength &&
         _hasNumber &&
         _hasUpperAndLower &&
         _passwordsMatch;
 
-    return Form(
-      key: _formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          // Form fields
-          const CustomTextField(
-              icon: LucideIcons.user2, hintText: 'Enter your name'),
-          const SizedBox(height: 15),
-          const CustomTextField(
-              icon: LucideIcons.mail, hintText: 'Enter your email'),
-          const SizedBox(height: 15),
-          PasswordField(onChanged: _checkPassword),
-          const SizedBox(height: 15),
-          PasswordField(
+    return SingleChildScrollView(
+      physics: _canScroll
+          ? const AlwaysScrollableScrollPhysics()
+          : const NeverScrollableScrollPhysics(),
+      controller: _scrollController,
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: screenHeight * 0.02),
+            const CustomTextField(
+              icon: LucideIcons.user2,
+              hintText: 'Enter your name',
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            const CustomTextField(
+              icon: LucideIcons.mail,
+              hintText: 'Enter your email',
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            PasswordField(onChanged: _checkPassword),
+            SizedBox(height: screenHeight * 0.02),
+            PasswordField(
               labelText: 'Confirm your password',
-              onChanged: _checkConfirmPassword),
-          const SizedBox(height: 15),
+              onChanged: _checkConfirmPassword,
+              focusNode: _confirmPasswordFocusNode,
+            ),
+            SizedBox(height: screenHeight * 0.02),
 
-          // Password conditions
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              PasswordCondition(
-                text: 'At lest 8 characters',
-                isValid: _hasMinLength,
-              ),
-              PasswordCondition(
-                text: 'At lest 1 number',
-                isValid: _hasNumber,
-              ),
-              PasswordCondition(
-                  text: 'Both uper and lower case letters',
-                  isValid: _hasUpperAndLower),
-              PasswordCondition(
-                  text: 'Password match', isValid: _passwordsMatch)
-            ],
-          ),
-          const SizedBox(height: 0),
-
-          // Terms & Conditions checkbox
-          Container(
-            padding: const EdgeInsets.only(top: 24),
-            child: Row(
+            // Password conditions
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Checkbox(
-                    value: _agreeToTerms,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        _agreeToTerms = value!;
-                      });
-                    }),
-                const Expanded(
-                    child: Text(
-                  'By agreeing to the tetms and conditions, are entering into a legally biding contract with the service provider.',
-                  style: TextStyle(fontSize: 12),
-                ))
+                PasswordCondition(
+                    text: 'At least 8 characters', isValid: _hasMinLength),
+                PasswordCondition(
+                    text: 'At least 1 number', isValid: _hasNumber),
+                PasswordCondition(
+                  text: 'Both upper and lower case letters',
+                  isValid: _hasUpperAndLower,
+                ),
+                PasswordCondition(
+                    text: 'Password match', isValid: _passwordsMatch),
               ],
             ),
-          ),
+            SizedBox(height: screenHeight * 0.04),
 
-          // Sign Up Button
-          ElevatedButton(
-            onPressed: isFormValid
-                ? () {
-                    if (_formKey.currentState!.validate()) {
-                      // Handle sign up
+            // Terms & Conditions checkbox
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Checkbox(
+                  value: _agreeToTerms,
+                  checkColor: Colors.orange,
+                  activeColor: Colors.white,
+                  side: const BorderSide(color: Colors.black45, width: 1.0),
+                  onChanged: (bool? value) {
+                    setState(() {
+                      _agreeToTerms = value!;
+                    });
+                  },
+                ),
+                const Text(
+                  'By agreeing to the terms and conditions, you are entering "\ninto a legally binding contract with the service provider.',
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black54),
+                ),
+              ],
+            ),
+            SizedBox(height: screenHeight * 0.01),
+            // Sign Up Button
+            ElevatedButton(
+              onPressed: isFormValid
+                  ? () {
+                      if (_formKey.currentState!.validate()) {
+                        // Handle sign up
+                      }
                     }
-                  }
-                : null,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.orange,
-              minimumSize: const Size(double.infinity, 48),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
+                  : null,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange,
+                minimumSize: const Size(double.infinity, 48),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+              ),
+              child: const Text(
+                'Sign Up',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
-            child: const Text(
-              'Sign Up',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ],
+            SizedBox(height: screenHeight * 0.1),
+          ],
+        ),
       ),
     );
   }
