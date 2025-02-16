@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:sic_mobile_app/components/common/password_fied.dart';
+import 'package:sic_mobile_app/utils/constants.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -42,6 +43,8 @@ class _SignInFormState extends State<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = getHeight(context);
+
     bool isFormValid = _hasMinLengthName &&
         _hasMinLengthPassWord &&
         _hasNumber &&
@@ -53,7 +56,7 @@ class _SignInFormState extends State<SignInForm> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           // Username Field
-          const SizedBox(height: 15),
+          SizedBox(height: screenHeight * 0.02),
           TextFormField(
             onChanged: _checkUsername,
             decoration: InputDecoration(
@@ -68,16 +71,16 @@ class _SignInFormState extends State<SignInForm> {
                   borderSide: const BorderSide(color: Colors.orange),
                 )),
           ),
-          const SizedBox(height: 15),
+          SizedBox(height: screenHeight * 0.02),
           PasswordField(
             onChanged: _checkPassword,
           ),
 
-          const SizedBox(height: 15),
+          SizedBox(height: screenHeight * 0.02),
 
           // Forgot Password
           Padding(
-            padding: const EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(left: 16),
             child: Align(
               alignment: Alignment.centerLeft,
               child: InkWell(
@@ -92,7 +95,6 @@ class _SignInFormState extends State<SignInForm> {
                     decoration: _isForgotPasswordTapped
                         ? TextDecoration.underline
                         : TextDecoration.none,
-                    // decorationColor: Colors.orange,
                   ),
                 ),
               ),
@@ -124,7 +126,7 @@ class _SignInFormState extends State<SignInForm> {
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: screenHeight * 0.02),
 
           Center(
             child: RichText(
@@ -154,9 +156,7 @@ class _SignInFormState extends State<SignInForm> {
                       ),
                     ),
                   ),
-                  const TextSpan(
-                    text: '\n and ',
-                  ),
+                  const TextSpan(text: '\n and '),
                   WidgetSpan(
                     alignment: PlaceholderAlignment.middle,
                     child: InkWell(
